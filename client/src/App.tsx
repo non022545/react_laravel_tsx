@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Swal from 'sweetalert2';
 import AppAPI from './connectApi/AppAPI';
+import Home from './connectApi/frist/Home';
+
 
 type FormData = {
   name: string;
@@ -21,7 +23,7 @@ function App() {
       setLoading(true);
       setError(null);
       try {
-        const response = await AppAPI.get('/showvalo');  // สมมติ API path /api/products
+        const response = await Home.getall();
         setProducts(response.data.data || response.data); // ปรับตาม response โครงสร้างจริง
       } catch (err: any) {
         setError(err.response?.data?.message || err.message || "เกิดข้อผิดพลาด");
