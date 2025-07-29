@@ -57,7 +57,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+      return response()->json($product);    
     }
 
     /**
@@ -65,7 +65,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $data = $request->validate([
+            'name' => 'string',
+            'description' => 'string',
+            'price' => 'numeric',
+            'rankvalo' => 'string',
+        ]);
+
+        $product->update($data);
+
+        return response()->json([
+            'message' => 'successfully',
+            'data' => $product
+        ]);
     }
 
     /**
@@ -73,6 +85,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json([
+            'message' => 'Product deleted successfully',
+        ]);
     }
 }
